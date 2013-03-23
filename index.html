@@ -1,0 +1,140 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<link rel="stylesheet" media ="only screen and (min-width : 769px)"
+href="./css/widescreen.css" type="text/css" />
+<link rel="stylesheet" media ="only screen and (max-width : 768px) and (min-width : 481 px)" href="./css/tablet.css" type="text/css" />
+<link rel="stylesheet" media ="only screen and (max-width : 480px)" href="./css/smartphone.css" type="text/css" />
+<style type="text/css">
+        html, body {
+        width: 100%;
+        height: 100%;
+    }
+    #map_canvas {
+        height: 85%;
+        width: 100%;
+    }
+    #mapa {
+        height: 50%;
+        width: 50%;
+    }
+    </style>
+<meta http-equiv="Content-type" content="text/html" charset="utf-8">
+<title>Best web </title>
+
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+// Determine support for Geolocation
+if (navigator.geolocation) {
+    // Locate position
+    navigator.geolocation.getCurrentPosition(displayPosition, errorFunction);
+} else {
+    alert('Parece que la geolocalizacion, necesaria para cargar toda la página, no esta aceptada por su navegador. Por favor, cambie la configuración.');
+}
+
+// Success callback function
+function displayPosition(pos) {
+    var mylat = pos.coords.latitude;
+    var mylong = pos.coords.longitude;
+    var thediv = document.getElementById('locationinfo');
+    thediv.innerHTML = '<p>Your longitude is: ' +
+        mylong + ' and your latitide is: ' + mylat + '</p>';
+
+//Load Google Map
+var latlng = new google.maps.LatLng(mylat, mylong);
+    var myOptions = {
+      zoom: 15,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+   
+var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+//Add marker
+var marker = new google.maps.Marker({
+	     position: latlng, 
+	     map: map, 
+	     title:"You are here"
+	 });
+localStorage.x2= localStorage.x1;
+localStorage.y2= localStorage.y1;
+localStorage.y1= mylat;
+localStorage.x1=myLong;
+}
+
+// Error callback function
+function errorFunction(pos) {
+    alert('Error!');
+}
+
+$(function() {
+       if (localStorage.count) localStorage.count++;
+       else                    localStorage.count = 1;
+       $('#count').html("Visited " + localStorage.count + " times");
+    });
+</script>
+
+</head>
+
+<body>
+<div id="page-wrap">
+<header class = "main" id="h1">
+<h1> Bienvenidos a la página de Rafael Comendador y José San Juan</h1>
+</header>
+
+<TABLE BORDER>
+<TR><TD><h3>Explicacion en texto</h3>
+Pues hemos hecho Rafael Comendador y yo una página to chula y 
+to currada con las instrucciones de clase, asi como lo oyes tu!
+</TD>
+<TD>
+<h3>Explicacion en video</h3>
+
+    <video src="./media/sueco.m4v" 
+            width="320" 
+            height="240"  
+            controls 
+            preload 
+            autoplay>
+    </video>
+  <p>
+    El sueco haciendo como que trabaja
+</TD></TR></TABLE>
+</div>
+<div id ="mapa">
+<div id="map_canvas"></div>
+<div id="locationinfo"></div>
+<div><form>
+Longitud:  <input type='text'   id='lon' value='localStorage.x1' size='5'/> <br>
+Latitud: <input type='text'   id='lat' value='localStorage.y1' size='5'/> <br>
+        <input type='button' id='but' value='aplicar'/> 
+</form>
+
+<script type="text/javascript">
+  var lat = document.getElementById('lat'),
+      lon = document.getElementById('lon'),
+      but = document.getElementById('but');
+
+  but.onclick = function() {
+                 var latlng = new google.maps.LatLng(lat, lon);
+                 var myOptions = {
+      zoom: 12,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+   
+    var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+//Add marker
+    var marker = new google.maps.Marker({
+         position: latlng, 
+         map: map, 
+         title:"You are here"
+     });
+             }
+
+</script></div>
+</div>
+</body>
+</html>
