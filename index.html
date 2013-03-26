@@ -26,12 +26,16 @@ href="./css/widescreen.css" type="text/css" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript">
 // Determine support for Geolocation
+function pintar(){
 if (navigator.geolocation) {
     // Locate position
     navigator.geolocation.getCurrentPosition(displayPosition, errorFunction);
 } else {
     alert('Parece que la geolocalizacion, necesaria para cargar toda la página, no esta aceptada por su navegador. Por favor, cambie la configuración.');
 }
+}
+
+pintar();
 
 // Success callback function
 function displayPosition(pos) {
@@ -68,11 +72,6 @@ function errorFunction(pos) {
     alert('Error!');
 }
 
-$(function() {
-       if (localStorage.count) localStorage.count++;
-       else                    localStorage.count = 1;
-       $('#count').html("Visited " + localStorage.count + " times");
-    });
 </script>
 
 </head>
@@ -132,6 +131,8 @@ Latitud: <input type='text'   id='lat' value='localStorage.y1' size='5'/> <br>
          map: map, 
          title:"You are here"
      });
+     
+     pintar();
              }
 
 </script></div>
